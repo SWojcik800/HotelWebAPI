@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelWebAPI", "HotelWebAPI.csproj", "{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelWebAPI.Tests", "..\HotelWebAPI.Tests\HotelWebAPI.Tests.csproj", "{176BB327-647B-4F9A-AD63-0A769B607506}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176BB327-647B-4F9A-AD63-0A769B607506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176BB327-647B-4F9A-AD63-0A769B607506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176BB327-647B-4F9A-AD63-0A769B607506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176BB327-647B-4F9A-AD63-0A769B607506}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2FE6B14-FD5A-4795-9F88-076212E20811}
+	EndGlobalSection
+EndGlobal
