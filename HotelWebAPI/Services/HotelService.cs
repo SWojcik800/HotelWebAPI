@@ -33,24 +33,21 @@ namespace HotelWebAPI.Services
         {
             var hotel = await _hotelRepository.GetById(id);
 
-            if (hotel is null)
-                return null;
-
             var hotelDto = _mapper.Map<HotelDto>(hotel);
 
             return hotelDto;
         }
 
-        public async Task<HotelDto> Create(CreateHotelDto dto)
+        public async Task<int?> Create(CreateHotelDto dto)
         {
             if (dto is null)
                 return null;
 
             var hotel = _mapper.Map<Hotel>(dto);
             var hotelResult = await _hotelRepository.Create(hotel);
-            var hotelDto = _mapper.Map<HotelDto>(hotelResult);
+            var hotelId = hotelResult.Id;
 
-            return hotelDto;
+            return hotelId;
 
         }
 

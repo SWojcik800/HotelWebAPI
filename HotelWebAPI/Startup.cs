@@ -36,6 +36,7 @@ namespace HotelWebAPI
 
             services.AddControllers();
 
+            services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IHotelService, HotelService>();
 

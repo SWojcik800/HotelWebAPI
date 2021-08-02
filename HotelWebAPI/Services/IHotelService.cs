@@ -6,7 +6,7 @@ namespace HotelWebAPI.Services
 {
     public interface IHotelService
     {
-        Task<HotelDto> Create(CreateHotelDto dto);
+        Task<int?> Create(CreateHotelDto dto);
         Task<HotelDto> Delete(int id);
         Task<List<HotelDto>> GetAll();
         Task<HotelDto> GetById(int id);
