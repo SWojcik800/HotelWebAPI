@@ -66,7 +66,6 @@ namespace HotelWebAPI.Tests
                 Address = new Address()
                 {
                     City = "Generic city 4",
-                    ApartmentNumber = "ApartmentNr",
                     Street = "Generic street",
                     ZipCode = "34-779"
                 }

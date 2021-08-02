@@ -35,7 +35,7 @@ namespace HotelWebAPI.Tests.Repositories
                     Address = new Address()
                     {
                         City = "Generic city 1",
-                        ApartmentNumber = "ApartmentNr",
+                        
                         Street = "Generic street",
                         ZipCode = "34-777"
                     }
@@ -50,7 +50,7 @@ namespace HotelWebAPI.Tests.Repositories
                     Address = new Address()
                     {
                         City = "Generic city 1",
-                        ApartmentNumber = "ApartmentNr",
+                       
                         Street = "Generic street",
                         ZipCode = "34-778"
                     }
@@ -65,7 +65,7 @@ namespace HotelWebAPI.Tests.Repositories
                     Address = new Address()
                     {
                         City = "Generic city 1",
-                        ApartmentNumber = "ApartmentNr",
+                       
                         Street = "Generic street",
                         ZipCode = "34-779"
                     }

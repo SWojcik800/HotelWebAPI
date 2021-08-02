@@ -1,5 +1,6 @@
 using HotelWebAPI.Entities;
 using HotelWebAPI.Repositories;
+using HotelWebAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace HotelWebAPI
             services.AddControllers();
 
             services.AddScoped<IHotelRepository, HotelRepository>();
+            services.AddScoped<IHotelService, HotelService>();
 
             services.AddSwaggerGen(c =>
             {
