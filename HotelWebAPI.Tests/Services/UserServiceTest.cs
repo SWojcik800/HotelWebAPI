@@ -82,7 +82,7 @@ namespace HotelWebAPI.Tests.Services
         }
 
         [Fact]
-        public async Task Create_ReturnsCreatedHotelDto()
+        public async Task Create_ReturnsCreatedUserId()
         {
             _userRepository
                 .Setup(u => u.Create(It.IsAny<User>()))
@@ -99,9 +99,8 @@ namespace HotelWebAPI.Tests.Services
             var dto = UserSeeder.GetCreateUserDto();
             var result = await _sut.Create(dto);
 
-            IsType<UserDto>(result);
-            Equal("HashedPassword", result.PasswordHash);
-            NotNull(result.RoleName);
+            IsType<int>(result);
+            
 
         }
         [Fact]

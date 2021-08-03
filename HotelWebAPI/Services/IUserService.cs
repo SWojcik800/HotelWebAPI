@@ -6,7 +6,7 @@ namespace HotelWebAPI.Services
 {
     public interface IUserService
     {
-        Task<UserDto> Create(CreateUserDto dto);
+        Task<int> Create(CreateUserDto dto);
         Task<UserDto> Delete(int id);
         Task<List<UserDto>> GetAll();
         Task<UserDto> GetById(int id);

@@ -46,7 +46,7 @@ namespace HotelWebAPI.Services
             return userDto;
         }
 
-        public async Task<UserDto> Create(CreateUserDto dto)
+        public async Task<int> Create(CreateUserDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
                 throw new BadRequestException("Passwords does not match");
@@ -68,11 +68,9 @@ namespace HotelWebAPI.Services
 
             if (createdUser is null)
                 throw new Exception("Internal server error");
+            
 
-            var userDto = _mapper.Map<UserDto>(createdUser);
-            userDto.PasswordHash = hashedPassword;
-
-            return userDto;
+            return createdUser.Id;
 
 
         }
