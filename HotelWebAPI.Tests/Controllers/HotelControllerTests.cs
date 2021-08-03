@@ -86,6 +86,8 @@ namespace HotelWebAPI.Tests.Controllers
             IsType<NoContentResult>(result);
         }
 
+        
+
         [Fact]
         public async Task Update_UpdatesHotelDtoIfExists()
         {

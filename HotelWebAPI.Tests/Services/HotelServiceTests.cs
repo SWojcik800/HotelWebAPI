@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelWebAPI.Entities.ApiData;
+using HotelWebAPI.Exceptions;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Services;
@@ -59,21 +60,7 @@ namespace HotelWebAPI.Tests.Services
         public async Task GetById_ReturnsHotelDtoIfExists()
         {
 
-            var mockHotel = new Hotel()
-            {
-                Id = 1,
-                Name = "hotel 1",
-                Description = "hotel 1 desc",
-                Stars = 3,
-                ContactEmail = "mock@email.com",
-                PhoneNumber = "192 168 001",
-                Address = new Address()
-                {
-                    City = "Generic city 1",
-                    Street = "Generic street",
-                    ZipCode = "34-777"
-                }
-            };
+            var mockHotel = HotelSeeder.GetHotels()[0];
 
             var mockHotelDto = new HotelDto()
             {
@@ -102,8 +89,24 @@ namespace HotelWebAPI.Tests.Services
 
         }
 
-        
-       
+        [Fact]
+        public async Task GetById_ThrowsNotFoundExceptionIfHotelDoesNotExist()
+        {
+            var mockHotel = HotelSeeder.GetHotels()[0];
+
+
+            _hotelRepository
+                .Setup(h => h.GetById(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            Func<Task> act = () => _sut.GetById(mockHotel.Id);
+
+            await ThrowsAsync<NotFoundException>(act);
+        }
+
+
+
+
         [Fact]
 
         public async Task Create_ReturnsCreatedHotelId()
@@ -168,7 +171,21 @@ namespace HotelWebAPI.Tests.Services
             Equal("hotel 4", result.Name);
         }
 
-        
+        [Fact]
+        public async Task Delete_ThrowsNotFoundExceptionIfHotelDoesNotExist()
+        {
+            var mockHotel = HotelSeeder.GetHotels()[0];
+
+            _hotelRepository
+                .Setup(h => h.Delete(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            Func<Task> act = () => _sut.Delete(mockHotel.Id);
+
+            await ThrowsAsync<NotFoundException>(act);
+        }
+
+
         [Fact]
 
         public async Task Update_ReturnsUpdatedHotelDto()
@@ -204,6 +221,22 @@ namespace HotelWebAPI.Tests.Services
 
             
 
+        }
+
+        [Fact]
+        public async Task Update_ThrowsNotFoundExceptionIfHotelDoesNotExist()
+        {
+            var mockHotel = HotelSeeder.GetHotels()[0];
+            var mockUpdateHotelDto = HotelSeeder.GetUpdateHotelDto();
+         
+
+            _hotelRepository
+                .Setup(h => h.Update(It.IsAny<int>(), It.IsAny<Hotel>()))
+                .ReturnsAsync(() => null);
+
+            Func<Task> act = () => _sut.Update(mockHotel.Id, mockUpdateHotelDto);
+
+            await ThrowsAsync<NotFoundException>(act);
         }
 
 

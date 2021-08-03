@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelWebAPI.Entities.ApiData;
+using HotelWebAPI.Exceptions;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Repositories;
 using System;
@@ -33,6 +34,9 @@ namespace HotelWebAPI.Services
         {
             var hotel = await _hotelRepository.GetById(id);
 
+            if (hotel is null)
+                throw new NotFoundException($"Hotel with id {id} was not found.");
+
             var hotelDto = _mapper.Map<HotelDto>(hotel);
 
             return hotelDto;
@@ -57,7 +61,7 @@ namespace HotelWebAPI.Services
             var hotel = await _hotelRepository.Delete(id);
 
             if (hotel is null)
-                return null;
+                throw new NotFoundException($"Hotel with id {id} was not found.");
 
             var hotelDto = _mapper.Map<HotelDto>(hotel);
 
@@ -70,7 +74,7 @@ namespace HotelWebAPI.Services
             var hotelToUpdate = await _hotelRepository.GetById(id);
 
             if (hotelToUpdate == null)
-                return null;
+                throw new NotFoundException($"Hotel with id {id} was not found.");
 
             hotelToUpdate.Name = dto.Name;
             hotelToUpdate.Description = dto.Description;

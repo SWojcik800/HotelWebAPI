@@ -29,6 +29,7 @@ namespace HotelWebAPI.Repositories
         {
             return await _context
                 .Hotels
+                .Include(h => h.Address)
                 .FirstOrDefaultAsync(h => h.Id == id);
 
         }
@@ -42,7 +43,7 @@ namespace HotelWebAPI.Repositories
 
         public async Task<Hotel> Update(int id, Hotel hotelToUpdate)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
+            var hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
 
             if (id != hotelToUpdate.Id || hotel == null)
                 return null;
@@ -55,7 +56,7 @@ namespace HotelWebAPI.Repositories
 
         public async Task<Hotel> Delete(int id)
         {
-            var hotelToDelete = await _context.Hotels.FindAsync(id);
+            var hotelToDelete = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
 
             if (hotelToDelete is null)
                 return null;

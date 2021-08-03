@@ -1,4 +1,5 @@
 using HotelWebAPI.Entities;
+using HotelWebAPI.Middleware;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Services;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +38,9 @@ namespace HotelWebAPI
             services.AddControllers();
 
             services.AddAutoMapper(this.GetType().Assembly);
+            services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IHotelRepository, HotelRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IHotelService, HotelService>();
 
             services.AddSwaggerGen(c =>
@@ -55,6 +58,8 @@ namespace HotelWebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelWebAPI v1"));
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 

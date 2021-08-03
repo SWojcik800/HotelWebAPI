@@ -33,16 +33,12 @@ namespace HotelWebAPI.Controllers
         {
             var hotelDto = await _hotelService.GetById(id);
 
-            if (hotelDto is null)
-                return NotFound(null);
-
             return Ok(hotelDto);
         }
         [HttpPost]
         public async Task<ActionResult> Create([FromBody]CreateHotelDto dto)
         {
             var createdHotelId = await _hotelService.Create(dto);
-            
 
             return Created($"/api/hotel/{createdHotelId}", null);
         }
@@ -51,18 +47,15 @@ namespace HotelWebAPI.Controllers
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
             var deletedHotel = await _hotelService.Delete(id);
-            if (deletedHotel is null)
-                return NotFound();
-
+            
             return NoContent();
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Update([FromRoute]int id, [FromBody]UpdateHotelDto dto)
         {
-            var updatedHotel = _hotelService.Update(id, dto);
-            if (updatedHotel is null)
-                return NotFound();
+            var updatedHotel = await _hotelService.Update(id, dto);
+            
 
             return NoContent();
         }
