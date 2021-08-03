@@ -86,7 +86,7 @@ namespace HotelWebAPI.Tests
             var hotelId = hotelToUpdate.Id;
             hotelToUpdate.Name = "Updated name";
 
-            var result = await _sut.Update(hotelId, hotelToUpdate);
+            await _sut.Update(hotelId, hotelToUpdate);
 
             var hotelAfterUpdate = context.Hotels.Find(hotelId);
 

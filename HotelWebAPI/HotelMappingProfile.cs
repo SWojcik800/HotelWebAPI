@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelWebAPI.Entities;
 using HotelWebAPI.Entities.ApiData;
 using HotelWebAPI.Models.Dtos;
 using System;
@@ -24,6 +25,9 @@ namespace HotelWebAPI
                     Street = dto.Street,
                     ZipCode = dto.ZipCode
                 }));
+
+            CreateMap<User, UserDto>()
+                .ForMember(u => u.RoleName, c => c.MapFrom(s => s.Role.Name));
 
             
         }

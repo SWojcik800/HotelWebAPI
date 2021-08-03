@@ -18,9 +18,9 @@ namespace HotelWebAPI.Tests.Services
 {
     public class HotelServiceTests
     {
-        private HotelService _sut;
-        private Mock<IHotelRepository> _hotelRepository = new Mock<IHotelRepository>();
-        private Mock<IMapper> _mapper = new Mock<IMapper>();
+        private readonly HotelService _sut;
+        private readonly Mock<IHotelRepository> _hotelRepository = new Mock<IHotelRepository>();
+        private readonly Mock<IMapper> _mapper = new Mock<IMapper>();
 
         public HotelServiceTests()
         {

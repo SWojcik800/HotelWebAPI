@@ -14,7 +14,7 @@ namespace HotelWebAPI.Tests.Repositories
 {
     public class UserRepositoryTests : UserAPIDbTest
     {
-        private UserRepository _sut;
+        private readonly UserRepository _sut;
         
         
 
