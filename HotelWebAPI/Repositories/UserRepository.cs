@@ -18,12 +18,16 @@ namespace HotelWebAPI.Repositories
 
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .Include(u => u.Role)
+                .ToListAsync();
         }
 
         public async Task<User> GetById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
         }
 

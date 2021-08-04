@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KdnipedqjnOg7qkPQNaJjNgYSwCPkAZafaTK70xriCaFPttKyNIzpOfcyWigqFQCpWY2840kpnjn5v2yS6d+Xg==",
+  "dgSpecHash": "EMIoQL5iFm8g/UVX+RLQHpMlKR/nQmULGJQ/m0XbLyFwBjPrvqoT2A+Ml65Vr8o/WAMsLPsUPGan1lwcf/f4Xg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ldvs\\Desktop\\HotelWebAPI\\HotelWebAPI.Tests\\HotelWebAPI.Tests.csproj",
   "expectedPackageFiles": [
@@ -75,6 +75,9 @@
     "C:\\Users\\Ldvs\\.nuget\\packages\\moq\\4.16.1\\moq.4.16.1.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\Ldvs\\.nuget\\packages\\nlog\\4.7.10\\nlog.4.7.10.nupkg.sha512",
+    "C:\\Users\\Ldvs\\.nuget\\packages\\nlog.extensions.logging\\1.7.3\\nlog.extensions.logging.1.7.3.nupkg.sha512",
+    "C:\\Users\\Ldvs\\.nuget\\packages\\nlog.web.aspnetcore\\4.13.0\\nlog.web.aspnetcore.4.13.0.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

@@ -15,6 +15,8 @@ using HotelWebAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNet.Identity;
 using HotelWebAPI.Exceptions;
+using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace HotelWebAPI.Tests.Services
 {
@@ -23,17 +25,20 @@ namespace HotelWebAPI.Tests.Services
         private readonly Mock<IUserRepository> _userRepository = new Mock<IUserRepository>();
         private readonly Mock<IMapper> _mapper = new Mock<IMapper>();
         private readonly Mock<IPasswordHasher<User>> _passwordHasher = new Mock<IPasswordHasher<User>>();
+        private readonly Mock<ILogger<UserService>> _logger = new Mock<ILogger<UserService>>();
 
         private readonly UserService _sut;
 
         public UserServiceTest()
         {
-            _sut = new UserService(_userRepository.Object, _mapper.Object, _passwordHasher.Object);
+            _sut = new UserService(_userRepository.Object, _mapper.Object, _passwordHasher.Object, _logger.Object);
+            
         }
 
         [Fact]
         public async Task GetAll_ReturnsAllUsers()
         {
+            
             _userRepository
                 .Setup(u => u.GetAll())
                 .ReturnsAsync(UserSeeder.GetUsers());
@@ -50,22 +55,25 @@ namespace HotelWebAPI.Tests.Services
         [Fact]
         public async Task GetById_ReturnsUserDto_IfUserExists()
         {
+            var user = UserSeeder.GetUser();
+            user.Id = 1;
+
             _userRepository
                 .Setup(u => u.GetById(It.IsAny<int>()))
-                .ReturnsAsync(UserSeeder.GetUser());
+                .ReturnsAsync(user);
 
             _mapper
                 .Setup(m => m.Map<UserDto>(It.IsAny<User>()))
                 .Returns(UserSeeder.GetUserDto());
 
-            var existingUserId = UserSeeder.GetUser().Id;
-            var result = await _sut.GetById(existingUserId);
+            
+            var result = await _sut.GetById(user.Id);
 
             IsType<UserDto>(result);
         }
 
         [Fact]
-        public async Task GetById_ReturnsNull_IfUserDoesNotExist()
+        public async Task GetById_ThrowsNotFoundException_IfUserDoesNotExist()
         {
             _userRepository
                 .Setup(u => u.GetById(It.IsAny<int>()))
@@ -76,9 +84,10 @@ namespace HotelWebAPI.Tests.Services
                 .Returns(UserSeeder.GetUserDto());
 
             var existingUserId = UserSeeder.GetUser().Id;
-            var result = await _sut.GetById(existingUserId);
+            
 
-            Null(result);
+            Func<Task> act = () => _sut.GetById(existingUserId);
+            await ThrowsAsync<NotFoundException>(act);
         }
 
         [Fact]

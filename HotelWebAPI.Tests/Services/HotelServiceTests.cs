@@ -5,6 +5,7 @@ using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Services;
 using HotelWebAPI.Tests.Services.Seeders;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,11 @@ namespace HotelWebAPI.Tests.Services
         private readonly HotelService _sut;
         private readonly Mock<IHotelRepository> _hotelRepository = new Mock<IHotelRepository>();
         private readonly Mock<IMapper> _mapper = new Mock<IMapper>();
+        private readonly Mock<ILogger<HotelService>> _logger = new Mock<ILogger<HotelService>>();
 
         public HotelServiceTests()
         {
-            _sut = new HotelService(_hotelRepository.Object, _mapper.Object);
+            _sut = new HotelService(_hotelRepository.Object, _mapper.Object, _logger.Object);
 
         }
 
