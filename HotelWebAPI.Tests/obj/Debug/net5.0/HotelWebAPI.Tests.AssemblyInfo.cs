@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("HotelWebAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Ldvs\\Desktop\\HotelWebAPI\\HotelWebAPI", "HotelWebAPI.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("HotelWebAPI.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

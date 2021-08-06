@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using HotelWebAPI.Entities;
 using HotelWebAPI.Middleware;
+using HotelWebAPI.Models.Dtos;
+using HotelWebAPI.Models.Validators;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,9 +38,9 @@ namespace HotelWebAPI
         {
             services.AddDbContext<HotelWebAPIDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("HotelDbConnection")));
-                
 
-            services.AddControllers();
+
+            services.AddControllers().AddFluentValidation();
 
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<ErrorHandlingMiddleware>();
@@ -44,6 +48,8 @@ namespace HotelWebAPI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
+            services.AddScoped<IValidator<UpdateUserDto>, UpdateUserValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             services.AddSwaggerGen(c =>
