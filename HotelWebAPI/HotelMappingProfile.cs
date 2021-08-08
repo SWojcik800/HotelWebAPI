@@ -29,7 +29,8 @@ namespace HotelWebAPI
             CreateMap<User, UserDto>()
                 .ForMember(u => u.RoleName, c => c.MapFrom(s => s.Role.Name));
 
-            
+            CreateMap<Role, RoleDto>();
+            CreateMap<CreateRoleDto, Role>();
         }
     }
 }

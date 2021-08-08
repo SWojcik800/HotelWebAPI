@@ -49,6 +49,7 @@ namespace HotelWebAPI
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
