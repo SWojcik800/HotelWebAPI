@@ -112,31 +112,7 @@ namespace HotelWebAPI.Tests.Services
             
 
         }
-        [Fact]
-        public async Task Create_ThrowsBadRequestException_IfPasswordsDiffer()
-        {
-            _userRepository
-                .Setup(u => u.Create(It.IsAny<User>()))
-                .ReturnsAsync(UserSeeder.GetUser());
-
-            _mapper
-                .Setup(m => m.Map<UserDto>(It.IsAny<User>()))
-                .Returns(UserSeeder.GetUserDto());
-
-            _passwordHasher
-                .Setup(p => p.HashPassword(It.IsAny<User>(), It.IsAny<string>()))
-                .Returns("HashedPassword");
-
-            var dto = UserSeeder.GetCreateUserDto();
-            dto.ConfirmPassword = "RandomPassword";
-
-            Func<Task> act = () => _sut.Create(dto);
-
-            await ThrowsAsync<BadRequestException>(act);
-
-
-        }
-
+        
         [Fact]
         public async Task Delete_ReturnsDeletedUserDto_IfUserExisted()
         {

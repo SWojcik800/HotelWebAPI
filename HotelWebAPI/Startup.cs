@@ -5,6 +5,7 @@ using HotelWebAPI.Middleware;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Models.Validators;
 using HotelWebAPI.Repositories;
+using HotelWebAPI.Seeders;
 using HotelWebAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,8 @@ namespace HotelWebAPI
 
             services.AddControllers().AddFluentValidation();
 
+
+            services.AddScoped<HotelSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IHotelRepository, HotelRepository>();
@@ -59,8 +62,10 @@ namespace HotelWebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HotelSeeder hotelSeeder)
         {
+
+            hotelSeeder.Seed();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

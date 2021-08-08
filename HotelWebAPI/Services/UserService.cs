@@ -62,8 +62,6 @@ namespace HotelWebAPI.Services
 
         public async Task<int> Create(CreateUserDto dto)
         {
-            if (dto.Password != dto.ConfirmPassword)
-                throw new BadRequestException("Passwords does not match");
 
             var user = new User()
             {
