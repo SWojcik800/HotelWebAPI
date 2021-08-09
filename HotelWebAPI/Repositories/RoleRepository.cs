@@ -50,7 +50,7 @@ namespace HotelWebAPI.Repositories
         {
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == id);
 
-            if (id != roleEntity.Id || role is null)
+            if (role is null || roleEntity.Id != id)
                 return null;
 
             _context.Roles.Update(roleEntity);

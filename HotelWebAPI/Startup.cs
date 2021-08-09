@@ -52,6 +52,7 @@ namespace HotelWebAPI
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
             services.AddScoped<IValidator<UpdateUserDto>, UpdateUserValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();

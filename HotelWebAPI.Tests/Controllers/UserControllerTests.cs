@@ -62,6 +62,8 @@ namespace HotelWebAPI.Tests.Controllers
 
             var userToCreate = UserSeeder.GetCreateUserDto();
             var result = await _sut.Create(userToCreate);
+
+            IsType<CreatedResult>(result);
         }
 
         [Fact]

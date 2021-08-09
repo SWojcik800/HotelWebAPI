@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace HotelWebAPI.Services
 {
-    public class RoleService
+    public class RoleService : IRoleService
     {
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<RoleService> _logger;
 
-        public RoleService(IRoleRepository roleRepository, IMapper mapper, ILogger logger)
+        public RoleService(IRoleRepository roleRepository, IMapper mapper, ILogger<RoleService> logger)
         {
             _roleRepository = roleRepository;
             _mapper = mapper;
@@ -58,7 +58,7 @@ namespace HotelWebAPI.Services
 
             if (createdRole is null)
             {
-                
+
                 throw new Exception("Couldn't create a role");
             }
 
@@ -83,16 +83,22 @@ namespace HotelWebAPI.Services
             return dto;
         }
 
-        public async Task<RoleDto> Update(int id, RoleDto dto)
+        public async Task<RoleDto> Update(int id, CreateRoleDto dto)
         {
-            var role = _mapper.Map<Role>(dto);
+
+
+            var role = await _roleRepository.GetById(id);
+            role.Name = dto.Name;
+            
             var updatedRole = await _roleRepository.Update(id, role);
 
-            if (updatedRole is null)
+            if (updatedRole is null || dto is null)
             {
                 _logger.LogError($"Role with id {id} could not be found");
                 throw new NotFoundException($"Role with id {id} could not be found");
             }
+            
+
 
             _logger.LogInformation($"Role with id {id} has been created");
             var updatedDto = _mapper.Map<RoleDto>(updatedRole);

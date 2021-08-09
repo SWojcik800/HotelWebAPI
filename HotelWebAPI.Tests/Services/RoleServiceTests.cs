@@ -13,14 +13,15 @@ using HotelWebAPI.Services;
 using HotelWebAPI.Entities;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Exceptions;
+using HotelWebAPI.Tests.Services.Seeders;
 
-namespace HotelWebAPI.Tests.Services.Seeders
+namespace HotelWebAPI.Tests.Services
 {
     public class RoleServiceTests
     {
         private readonly Mock<IRoleRepository> _roleRepository = new Mock<IRoleRepository>();
         private readonly Mock<IMapper> _mapper = new Mock<IMapper>();
-        private readonly Mock<ILogger> _logger = new Mock<ILogger>();
+        private readonly Mock<ILogger<RoleService>> _logger = new Mock<ILogger<RoleService>>();
         private readonly RoleService _sut;
         public RoleServiceTests()
         {
@@ -157,22 +158,25 @@ namespace HotelWebAPI.Tests.Services.Seeders
         [Fact]
         public async Task Update_ReturnsUpdatedRoleDto_IfExists()
         {
+            var mockRole = RoleSeeder.GetRole();
             _roleRepository.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Role>()))
-                    .ReturnsAsync(RoleSeeder.GetRole());
+                    .ReturnsAsync(mockRole);
+
+            _roleRepository.Setup(r => r.GetById(It.IsAny<int>()))
+                .ReturnsAsync(RoleSeeder.GetRole());
+
             _mapper.Setup(m => m.Map<RoleDto>(It.IsAny<Role>()))
                    .Returns(RoleSeeder.GetRoleDto());
-            _mapper.Setup(m => m.Map<Role>(It.IsAny<CreateRoleDto>()))
-                   .Returns(RoleSeeder.GetRole());
+            
 
             var id = RoleSeeder.GetRole().Id;
-            var dto = new RoleDto()
+            var dto = new CreateRoleDto()
             {
-                Id = id,
                 Name = "UpdatedName"
             };
-            dto.Name = "UpdatedName";
+            
 
-            var result = await _sut.Update(dto.Id, dto);
+            var result = await _sut.Update(id, dto);
 
             IsType<RoleDto>(result);
             NotNull(result);
@@ -183,20 +187,25 @@ namespace HotelWebAPI.Tests.Services.Seeders
         {
             _roleRepository.Setup(r => r.Update(It.IsAny<int>(), It.IsAny<Role>()))
                     .ReturnsAsync(() => null);
+
+            _roleRepository.Setup(r => r.GetById(It.IsAny<int>()))
+                .ReturnsAsync(RoleSeeder.GetRole());
+
             _mapper.Setup(m => m.Map<RoleDto>(It.IsAny<Role>()))
                    .Returns(RoleSeeder.GetRoleDto());
+           
             _mapper.Setup(m => m.Map<Role>(It.IsAny<CreateRoleDto>()))
                    .Returns(RoleSeeder.GetRole());
 
             var id = RoleSeeder.GetRole().Id;
-            var dto = new RoleDto()
+            var dto = new CreateRoleDto()
             {
-                Id = id,
+                
                 Name = "UpdatedName"
             };
-            dto.Name = "UpdatedName";
+            
 
-           Func<Task> act = () => _sut.Update(dto.Id, dto);
+           Func<Task> act = () => _sut.Update(id, dto);
 
            await ThrowsAsync<NotFoundException>(act);
 
