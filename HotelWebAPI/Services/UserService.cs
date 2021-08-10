@@ -66,14 +66,10 @@ namespace HotelWebAPI.Services
             var user = new User()
             {
                 Email = dto.Email,
-                PasswordHash = dto.Password,
-                Role = new Role()
-                {
-                    Name = "User"
-                }
+                RoleId = dto.RoleId
             };
 
-            var hashedPassword = _passwordHasher.HashPassword(user, user.PasswordHash);
+            var hashedPassword = _passwordHasher.HashPassword(user, dto.Password);
             user.PasswordHash = hashedPassword;
 
             var createdUser = await _userRepository.Create(user);

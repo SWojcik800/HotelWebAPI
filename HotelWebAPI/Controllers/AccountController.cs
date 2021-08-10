@@ -14,6 +14,7 @@ namespace HotelWebAPI.Controllers
     {
         private readonly IAccountService _accountService;
 
+
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
@@ -24,6 +25,13 @@ namespace HotelWebAPI.Controllers
         {
             var registeredUserId = await _accountService.Register(dto);
             return Ok();
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Login([FromBody]LoginDto dto)
+        {
+            var token = await _accountService.GenerateJwtToken(dto);
+            return Ok(token);
         }
     }
 }
