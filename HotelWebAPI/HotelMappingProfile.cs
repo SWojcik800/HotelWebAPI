@@ -31,6 +31,8 @@ namespace HotelWebAPI
 
             CreateMap<Role, RoleDto>();
             CreateMap<CreateRoleDto, Role>();
+
+            CreateMap<RegisterUserDto, CreateUserDto>();
         }
     }
 }

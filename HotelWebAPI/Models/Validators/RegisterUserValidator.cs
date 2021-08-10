@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HotelWebAPI.Models.Validators
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserDto>
+    public class RegisterUserValidator : AbstractValidator<RegisterUserDto>
     {
-        public CreateUserValidator(HotelWebAPIDbContext dbContext)
+        public RegisterUserValidator(HotelWebAPIDbContext dbContext)
         {
             RuleFor(u => u.Email)
                 .NotEmpty()
@@ -20,7 +20,6 @@ namespace HotelWebAPI.Models.Validators
                 .MinimumLength(6)
                 .Matches("[A-Z]").WithMessage("Password must contain at least one capital letter.")
                 .Matches("[0-9]").WithMessage("Password must contain a number");
-            
 
             RuleFor(u => u.ConfirmPassword)
                 .Equal(u => u.Password);
@@ -49,6 +48,8 @@ namespace HotelWebAPI.Models.Validators
                     }
 
                 });
+
+
         }
     }
 }

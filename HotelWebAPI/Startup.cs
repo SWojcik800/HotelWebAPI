@@ -17,10 +17,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelWebAPI
@@ -37,13 +39,29 @@ namespace HotelWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var authenticationSettings = new AuthenticationSettings();
+            Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = "Bearer";
+                option.DefaultScheme = "Bearer";
+                option.DefaultChallengeScheme = "Bearer";
+            }).AddJwtBearer(config =>
+            {
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = authenticationSettings.JwtIssuer,
+                    ValidAudience = authenticationSettings.JwtIssuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
+                };
+            });
+
             services.AddDbContext<HotelWebAPIDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("HotelDbConnection")));
-
-
             services.AddControllers().AddFluentValidation();
-
-
             services.AddScoped<HotelSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<ErrorHandlingMiddleware>();
@@ -53,7 +71,9 @@ namespace HotelWebAPI
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidator>();
             services.AddScoped<IValidator<UpdateUserDto>, UpdateUserValidator>();
             services.AddScoped<IValidator<CreateRoleDto>, CreateRoleValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -77,7 +97,7 @@ namespace HotelWebAPI
             }
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseRouting();

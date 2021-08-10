@@ -1,0 +1,29 @@
+﻿using HotelWebAPI.Models.Dtos;
+using HotelWebAPI.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace HotelWebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult> Register([FromBody]RegisterUserDto dto)
+        {
+            var registeredUserId = await _accountService.Register(dto);
+            return Ok();
+        }
+    }
+}
