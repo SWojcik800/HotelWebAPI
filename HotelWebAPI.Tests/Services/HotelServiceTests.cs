@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
+using HotelWebAPI.Authorization;
 using HotelWebAPI.Entities.ApiData;
 using HotelWebAPI.Exceptions;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Services;
 using HotelWebAPI.Tests.Services.Seeders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -23,10 +26,12 @@ namespace HotelWebAPI.Tests.Services
         private readonly Mock<IHotelRepository> _hotelRepository = new Mock<IHotelRepository>();
         private readonly Mock<IMapper> _mapper = new Mock<IMapper>();
         private readonly Mock<ILogger<HotelService>> _logger = new Mock<ILogger<HotelService>>();
+        private readonly Mock<IUserContextService> _userContextService = new Mock<IUserContextService>();
+        private readonly MockIAuthorizationService _authorizationService = new MockIAuthorizationService();
 
         public HotelServiceTests()
         {
-            _sut = new HotelService(_hotelRepository.Object, _mapper.Object, _logger.Object);
+            _sut = new HotelService(_hotelRepository.Object, _mapper.Object, _logger.Object, _userContextService.Object, _authorizationService);
 
         }
 
@@ -148,12 +153,17 @@ namespace HotelWebAPI.Tests.Services
 
         }
 
+
+        
+
         [Fact]
 
         public async Task Delete_ReturnsDeletedHotelDtoIfExists()
         {
             var mockHotel = HotelSeeder.GetHotels()[0];
             var mockHotelDto = HotelSeeder.GetHotelDtos()[0];
+
+            
 
             _hotelRepository
                 .Setup(h => h.Delete(It.IsAny<int>()))
@@ -166,6 +176,8 @@ namespace HotelWebAPI.Tests.Services
             _mapper
                .Setup(m => m.Map<Hotel>(It.IsAny<CreateHotelDto>()))
                .Returns(mockHotel);
+
+            
 
             var result = await _sut.Delete(mockHotel.Id);
 

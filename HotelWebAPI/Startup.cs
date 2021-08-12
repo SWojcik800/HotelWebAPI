@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HotelWebAPI.Authorization;
 using HotelWebAPI.Entities;
 using HotelWebAPI.Middleware;
 using HotelWebAPI.Models.Dtos;
@@ -7,6 +8,7 @@ using HotelWebAPI.Models.Validators;
 using HotelWebAPI.Repositories;
 using HotelWebAPI.Seeders;
 using HotelWebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -61,12 +63,19 @@ namespace HotelWebAPI
                 };
             });
 
+            
+
             services.AddDbContext<HotelWebAPIDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("HotelDbConnection")));
             services.AddControllers().AddFluentValidation();
             services.AddScoped<HotelSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<ErrorHandlingMiddleware>();
+
+            services.AddScoped<IUserContextService, UserContextService>();
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();

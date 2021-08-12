@@ -82,7 +82,8 @@ namespace HotelWebAPI.Services
         public async Task<int> Register(RegisterUserDto dto)
         {
             var createDto = _mapper.Map<CreateUserDto>(dto);
-            
+            createDto.RoleId = 1;
+
             var newUserId = await _userService.Create(createDto);
 
             return newUserId;

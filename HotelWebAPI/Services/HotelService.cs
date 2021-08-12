@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using HotelWebAPI.Authorization;
 using HotelWebAPI.Entities.ApiData;
 using HotelWebAPI.Exceptions;
 using HotelWebAPI.Models.Dtos;
 using HotelWebAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,12 +18,16 @@ namespace HotelWebAPI.Services
         private readonly IHotelRepository _hotelRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<HotelService> _logger ;
+        private readonly IUserContextService _userContextService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public HotelService(IHotelRepository hotelRepository, IMapper mapper, ILogger<HotelService> logger)
+        public HotelService(IHotelRepository hotelRepository, IMapper mapper, ILogger<HotelService> logger, IUserContextService userContextService, IAuthorizationService authorizationService)
         {
             _hotelRepository = hotelRepository;
             _mapper = mapper;
             _logger = logger;
+            _userContextService = userContextService;
+            _authorizationService = authorizationService;
         }
 
         public async Task<List<HotelDto>> GetAll()
@@ -64,10 +70,12 @@ namespace HotelWebAPI.Services
                 
 
             var hotel = _mapper.Map<Hotel>(dto);
+            hotel.CreatedById = _userContextService.GetUserId;
+
             var hotelResult = await _hotelRepository.Create(hotel);
             var hotelId = hotelResult.Id;
 
-            _logger.LogInformation($"Hotel with id {hotelId} has been created.");
+            _logger.LogInformation($"Hotel with id {hotelId} has been created by user with email: {_userContextService.GetEmail}");
 
             return hotelId;
 
@@ -83,10 +91,19 @@ namespace HotelWebAPI.Services
                 _logger.LogInformation($"Hotel with id {id} was not found.");
                 throw new NotFoundException($"Hotel with id {id} was not found.");
             }
-                
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(_userContextService.User, hotel,
+                new ResourceOperationRequirement(ResourceOperation.Delete));
+
+            if (!authorizationResult.Succeeded)
+            {
+                var email = _userContextService.GetEmail;
+                throw new ForbidException($"User with email: {email} tried to perform unauthorized delete action");
+            }
+
 
             var hotelDto = _mapper.Map<HotelDto>(hotel);
-            _logger.LogInformation($"Deleted hotel with id {id}.");
+            _logger.LogInformation($"Deleted hotel with id {id} by user with email: {_userContextService.GetEmail}");
 
             return hotelDto;
 
@@ -95,22 +112,35 @@ namespace HotelWebAPI.Services
         public async Task<HotelDto> Update(int id, UpdateHotelDto dto)
         {
             var hotelToUpdate = await _hotelRepository.GetById(id);
+            
 
             if (hotelToUpdate == null)
             {
                 _logger.LogInformation($"Hotel with id {id} was not found.");
                 throw new NotFoundException($"Hotel with id {id} was not found.");
             }
-                
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(_userContextService.User, hotelToUpdate,
+                new ResourceOperationRequirement(ResourceOperation.Update));
+
+            
+            if (!authorizationResult.Succeeded)
+            {
+                var email = _userContextService.GetEmail;
+                throw new ForbidException($"User with email: {email} tried to perform unauthorized update action");
+            }
+
+
 
             hotelToUpdate.Name = dto.Name;
             hotelToUpdate.Description = dto.Description;
             hotelToUpdate.Stars = dto.Stars;
+            hotelToUpdate.CreatedById = _userContextService.GetUserId;
 
             var hotel = await _hotelRepository.Update(id, hotelToUpdate);
 
             var hotelDto = _mapper.Map<HotelDto>(hotel);
-            _logger.LogInformation($"Hotel with id {id} has been created.");
+            _logger.LogInformation($"Hotel with id {id} has been updated by user with email: {_userContextService.GetEmail}");
 
             return hotelDto;
         }

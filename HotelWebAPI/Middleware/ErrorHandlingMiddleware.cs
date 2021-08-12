@@ -18,7 +18,8 @@ namespace HotelWebAPI.Middleware
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            try {
+            try
+            {
                 await next.Invoke(context);
             }
             catch (NotFoundException notFoundException)
@@ -30,6 +31,12 @@ namespace HotelWebAPI.Middleware
             {
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(badRequestException.Message);
+            }
+            catch (ForbidException forbidException)
+            {
+                _logger.LogError(forbidException.Message);
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync("You are not authorized to perform this action");
             }
             catch (Exception e)
             {

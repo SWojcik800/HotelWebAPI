@@ -18,10 +18,10 @@ namespace HotelWebAPI.Tests.IntegrationTests
 
         [Theory]
         [InlineData("/api/Hotel")]
-        public async Task GetAll_Endpoint_ReturnsSuccessStatusCode(string url)
+        public async Task GetAll_Endpoint_ReturnsUnauthorizedStatusCode(string url)
         {
             var response = await TestClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            Equal<int>(401, ((int)response.StatusCode));
         }
     }
 }
