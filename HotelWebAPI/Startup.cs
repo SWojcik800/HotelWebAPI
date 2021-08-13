@@ -98,7 +98,7 @@ namespace HotelWebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HotelSeeder hotelSeeder)
         {
-
+            
             hotelSeeder.Seed();
             if (env.IsDevelopment())
             {

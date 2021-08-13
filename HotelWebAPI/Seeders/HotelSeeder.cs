@@ -1,5 +1,6 @@
 ﻿using HotelWebAPI.Entities;
 using HotelWebAPI.Entities.ApiData;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,17 @@ namespace HotelWebAPI.Seeders
     public class HotelSeeder
     {
         private readonly HotelWebAPIDbContext _dbContext;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public HotelSeeder(HotelWebAPIDbContext dbContext)
+        public HotelSeeder(HotelWebAPIDbContext dbContext, IPasswordHasher<User> passwordHasher)
         {
             _dbContext = dbContext;
+            _passwordHasher = passwordHasher;
         }
 
         public void Seed()
         {
+            
             if (_dbContext.Database.CanConnect())
             {
                 var pendingMigrations = _dbContext.Database.GetPendingMigrations();
@@ -36,6 +40,11 @@ namespace HotelWebAPI.Seeders
                 if (!_dbContext.Hotels.Any())
                 {
                     _dbContext.AddRange(GetHotels());
+                    _dbContext.SaveChanges();
+                }
+                if (!_dbContext.Users.Any())
+                {
+                    _dbContext.AddRange(GetUsers());
                     _dbContext.SaveChanges();
                 }
 
@@ -61,6 +70,40 @@ namespace HotelWebAPI.Seeders
             };
 
             return roles;
+        }
+
+        private IEnumerable<User> GetUsers()
+        {
+            
+            var users = new List<User>()
+            {
+                
+                new User()
+                {
+                    Email = "user@localhost.com",
+                    RoleId = 1,
+                    
+                },
+                new User()
+                {
+                    Email = "moderator@localhost.com",
+                    RoleId = 2,
+
+                },
+                new User()
+                {
+                    Email = "admin@localhost.com",
+                    RoleId = 3,
+
+                }
+            };
+
+            foreach (var user in users)
+            {
+                user.PasswordHash = _passwordHasher.HashPassword(user, "Password1!");
+            }
+
+            return users;
         }
 
 
