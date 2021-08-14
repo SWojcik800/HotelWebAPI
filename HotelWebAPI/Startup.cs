@@ -66,7 +66,7 @@ namespace HotelWebAPI
             
 
             services.AddDbContext<HotelWebAPIDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("HotelDbConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DockerDbConnection")));
             services.AddControllers().AddFluentValidation();
             services.AddScoped<HotelSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);

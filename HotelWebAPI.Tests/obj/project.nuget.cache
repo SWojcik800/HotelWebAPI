@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3c+3PE8BoDu16mpzDMJVzTA3XX/2vW3Xzhi2dgqF8Pjk1t9jHsSF4osOUK899G8zz7ySqvX7jA7d6KTp8r0QOg==",
+  "dgSpecHash": "40/RXe4z5u8uU7Lt/Qs+S7jCQvErb1TUSoeP29SaP3QuzDhwPmLmMI19Alacxcs3T2kW5vuER9jxCM5MwEndlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ldvs\\Desktop\\HotelWebAPI\\HotelWebAPI.Tests\\HotelWebAPI.Tests.csproj",
   "expectedPackageFiles": [
@@ -91,6 +91,7 @@
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.9.4\\microsoft.testplatform.objectmodel.16.9.4.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.testplatform.testhost\\16.9.4\\microsoft.testplatform.testhost.16.9.4.nupkg.sha512",
+    "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.14\\microsoft.visualstudio.azure.containers.tools.targets.1.10.14.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Ldvs\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelWebAPI", "HotelWebAPI.csproj", "{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelWebAPI", "HotelWebAPI.csproj", "{88AB69EE-EDE3-40DA-9A49-7B9EC156DAC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelWebAPI.Tests", "..\HotelWebAPI.Tests\HotelWebAPI.Tests.csproj", "{176BB327-647B-4F9A-AD63-0A769B607506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelWebAPI.Tests", "..\HotelWebAPI.Tests\HotelWebAPI.Tests.csproj", "{176BB327-647B-4F9A-AD63-0A769B607506}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{57C4D9E5-2C3E-4EDB-A939-33950F6CB7A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{176BB327-647B-4F9A-AD63-0A769B607506}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{176BB327-647B-4F9A-AD63-0A769B607506}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{176BB327-647B-4F9A-AD63-0A769B607506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C4D9E5-2C3E-4EDB-A939-33950F6CB7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C4D9E5-2C3E-4EDB-A939-33950F6CB7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C4D9E5-2C3E-4EDB-A939-33950F6CB7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C4D9E5-2C3E-4EDB-A939-33950F6CB7A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

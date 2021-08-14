@@ -1,0 +1,18 @@
+2021-08-14 09:55:36.9689 Info Message Template Auto Format enabled
+2021-08-14 09:55:36.9792 Info Loading assembly: NLog.Web.AspNetCore
+2021-08-14 09:55:37.0250 Info Adding target FileTarget(Name=UserService)
+2021-08-14 09:55:37.0250 Info Adding target FileTarget(Name=HotelService)
+2021-08-14 09:55:37.0328 Info Adding target FileTarget(Name=RoleService)
+2021-08-14 09:55:37.0328 Info Adding target FileTarget(Name=Middleware)
+2021-08-14 09:55:37.0635 Info Validating config: TargetNames=UserService, HotelService, RoleService, Middleware, ConfigItems=80, FilePath=/app/bin/Debug/net5.0/NLog.config
+2021-08-14 09:55:37.0804 Info Configuration initialized.
+2021-08-14 09:55:37.0804 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.10.13013. Product version: 4.7.10+8142cd035d2c212fd82a4eb0081aed68da713b9e. GlobalAssemblyCache: False
+2021-08-14 09:57:10.9805 Info Message Template Auto Format enabled
+2021-08-14 09:57:10.9805 Info Loading assembly: NLog.Web.AspNetCore
+2021-08-14 09:57:11.0347 Info Adding target FileTarget(Name=UserService)
+2021-08-14 09:57:11.0347 Info Adding target FileTarget(Name=HotelService)
+2021-08-14 09:57:11.0406 Info Adding target FileTarget(Name=RoleService)
+2021-08-14 09:57:11.0406 Info Adding target FileTarget(Name=Middleware)
+2021-08-14 09:57:11.0742 Info Validating config: TargetNames=UserService, HotelService, RoleService, Middleware, ConfigItems=80, FilePath=/app/bin/Debug/net5.0/NLog.config
+2021-08-14 09:57:11.0938 Info Configuration initialized.
+2021-08-14 09:57:11.1014 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.10.13013. Product version: 4.7.10+8142cd035d2c212fd82a4eb0081aed68da713b9e. GlobalAssemblyCache: False

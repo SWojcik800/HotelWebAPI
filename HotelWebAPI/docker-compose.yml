@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  hotelwebapi:
+    image: ${DOCKER_REGISTRY-}hotelwebapi
+    build:
+      context: .
+      dockerfile: Dockerfile
